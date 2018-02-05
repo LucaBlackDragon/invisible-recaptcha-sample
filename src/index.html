@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="axios/axios.min.js"></script>
+    <script>
+        // your onload callback function must be defined before the reCAPTCHA API loads
+        var callApi = function callApi() {
+
+            // call API
+            var token = grecaptcha.getResponse();
+            var value = document.getElementById('input').value;
+            axios.post('/api', {
+                token: token,
+                value: value,
+            })
+                .then(({ data }) => document.getElementById('answer').innerHTML = data.answer)
+                .catch(err => document.getElementById('answer').innerHTML = 'ERRORE');
+
+            // reset recaptcha for next calls
+            grecaptcha.reset();
+            
+        };
+        var onButtonClick = function onButtonClick() {
+            // protect API with recaptcha
+            grecaptcha.execute();
+        };
+        var onload = function onload() {
+            var button = document.getElementById('submit');
+            button.onclick = onButtonClick;
+        };
+    </script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+
+<body>
+    <!-- Blocco di Recaptcha, vedi https://developers.google.com/recaptcha/docs/invisible#programmatic_execute -->
+    <div class="g-recaptcha" data-sitekey="6LegU0QUAAAAAKQk7dC-4Go8-Dtf1DR-K70wAHjz" data-callback="callApi" data-size="invisible">
+    </div>
+
+    <!-- Accesso all'API: -->
+    <label for="input">
+        Inserisci un numero:
+        <input id="input" type="number" value="2">
+    </label>
+    <input type="button" id="submit" value="Calcola il quadrato!">
+    <p>Il risultato è: <span id="answer"></span></p>
+    <p>Per tentare una chiamata non autenticata, eseguire da console la funzione <code>callApi()</code></p>
+
+    <script>onload()</script>
+
+    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <!-- <script>
+        window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script> -->
+</body>
+
+</html>

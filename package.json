@@ -1,0 +1,22 @@
+{
+  "name": "invisible-recaptcha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Luca Nardi <l.nardi@pluservice.net>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  },
+  "config": {
+    "clientPort": "8080",
+    "recaptchaPublicKey": "6LegU0QUAAAAAKQk7dC-4Go8-Dtf1DR-K70wAHjz",
+    "recaptchaSecretKey": "6LegU0QUAAAAAApMElIX6uYuTVaKvi_6NATwJo5i"
+  }
+}
